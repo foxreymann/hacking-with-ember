@@ -23,7 +23,6 @@
     </div>
     <div>
         <img {{ bindAttr src="model.hat.image"}} />
-        {{ model.hat.id }}
         <img {{ bindAttr src="model.head.image"}} />
         <img {{ bindAttr src="model.body.image"}} />
         <img {{ bindAttr src="model.leg.image"}} />
@@ -39,8 +38,14 @@
 
     <script type="text/x-handlebars" data-template-name="chat">
         chatting    
-        {{#each controller}}
-           {{id}}
+        {{#each App.Avatars}}
+            <img {{ bindAttr src="hat.image"}} />
+            <img {{ bindAttr src="head.image"}} />
+            <img {{ bindAttr src="body.image"}} />
+            <img {{ bindAttr src="leg.image"}} />
+            <div>
+                {{ message }} 
+            </div>
         {{/each}}
     </script>
   <script src="js/libs/jquery-1.9.1.js"></script>
