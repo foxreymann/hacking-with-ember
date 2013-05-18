@@ -2,6 +2,8 @@ var messagesRef = new Firebase('https://hatchat.firebaseIO.com/');
 
 var avatarRef = new Firebase('https://hatchat.firebaseIO.com/avatar_list');
 
+var messagesList = new Firebase('https://hatchat.firebaseIO.com/message_list');
+
 
 
 App = Ember.Application.create();
@@ -59,6 +61,12 @@ App.Avatar = Ember.Object.extend({
         App.Router.router.transitionTo('chat');
     }
 });
+
+App.Messages = Ember.Object.extend({
+    text: null,
+    userId : null
+    
+})
 
 App.BodyPart = Ember.Object.extend({
     type : null,
