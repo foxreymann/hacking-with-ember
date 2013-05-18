@@ -1,3 +1,9 @@
+var messagesRef = new Firebase('https://hatchat.firebaseIO.com/');
+
+var avatarRef = new Firebase('https://hatchat.firebaseIO.com/avatar_list');
+
+
+
 App = Ember.Application.create();
 
 App.Router.map(function() {
@@ -17,14 +23,26 @@ App.IndexRoute = Ember.Route.extend({
   }
 });
 
+App.ChatRoute = Ember.Route.extend({
+    controllerFor: function() {
+        
+    }
+})
 
 App.Avatar = Ember.Object.extend({
     name : 'test',
     hat: null,
     body : null,
-    legs : null
-
-
+    legs : null,
+    publish: function() {
+        avatarRef.push({
+            userId: this.get('id'),
+            hatId: this.get('hat.id'),   
+            headId: this.get('head.id'),   
+            bodyId: this.get('body.id'),   
+            legId: this.get('leg.id'),   
+        });
+    }
 });
 
 App.BodyPart = Ember.Object.extend({
@@ -95,4 +113,25 @@ App.IndexController = Ember.ObjectController.extend({
         }
         avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
     },
+});
+
+App.Messsage = Ember.Object.extend({
+    content: null,
+    send: function() {
+        messagesRef.push({userId: this.get('avatar').get('id') , text:this.get('content')});
+    }
+});
+
+
+App.AvatarsController = Ember.ArrayController.extend({
+    
+});
+
+App.Avatars = App.AvatarsController.create({
+    
+})
+
+avatarRef.on('child_added', function(snapshot) {
+    var msgData = snashot.val();
+    App.Avatars.push(App.Avatar.create(msgData));
 });
