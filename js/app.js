@@ -6,7 +6,7 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    return App.Avatar.create({head : App.HeadsController.get('firstObject')})
+    return App.Avatar.create({head : App.BodyParts.get('heads').get('firstObject')})
 
   }
 });
@@ -28,8 +28,12 @@ App.BodyPart = Ember.Object.extend({
 
 });
 
-App.HeadsController = Ember.ArrayController.create({
-    content: [App.BodyPart.create({type:'head',id:1})]
+App.BodyPartsController = Ember.ArrayController.extend({
+    heads: function() {
+        return this.get('content').filterProperty('type','head');
+    }.property('content'),
 
 
 });
+
+App.BodyParts = App.BodyPartsController.create({content:[App.BodyPart.create({type:'head',id:1})]})
