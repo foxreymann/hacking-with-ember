@@ -13,7 +13,7 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    var userId = Math.floor(Math.random() * 999999);
+   var userId = Math.floor(Math.random() * 999999);
     return App.Avatar.create({
         id : userId,
         headId : 1,
@@ -30,7 +30,10 @@ App.ChatRoute = Ember.Route.extend({
         return App.Avatars;        
     },
     setupController: function(controller) {
-     controller.set('content', []);
+        if(undefined === controller.get('content')) {
+             controller.set('content', []);
+        }
+     
     }
 })
 
