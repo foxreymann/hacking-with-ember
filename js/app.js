@@ -122,16 +122,16 @@ App.IndexController = Ember.ObjectController.extend({
         var avatar = this.get('model');
         currentHat = avatar.get(part);
         newHatId = (currentHat.get('id')) % 4 + 1;
-        avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
+        avatar.set(part + 'Id', newHatId);
     },
     prev: function(part) {
         var avatar = this.get('model');
         currentHat = avatar.get(part);
         newHatId = (currentHat.get('id') -1) % 4;
         if( 0 === newHatId) {
-            newHatId = 4; 
+            newHatId = 4;
         }
-        avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
+        avatar.set(part + 'Id', newHatId);
     },
 });
 
