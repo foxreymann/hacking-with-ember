@@ -61,6 +61,16 @@ App.Avatar = Ember.Object.extend({
         });
         App.Router.router.transitionTo('chat');
         App.set('currentAvatar',this);
+
+        avatarRef.on('child_added', function(snapshot) {
+            var msgData = snapshot.val();
+            App.Avatars.pushObject(App.Avatar.create(msgData));
+        });
+
+        messagesList.on('child_added', function(snapshot) {
+            var msgData = snapshot.val();
+            App.Messages.pushObject(App.Message.create(msgData));
+        });
     },
     message: function() {
         return App.Messages.filterProperty('userId',this.get('id')).get('lastObject');
