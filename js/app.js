@@ -7,9 +7,9 @@ App.Router.map(function() {
 App.IndexRoute = Ember.Route.extend({
   model: function() {
     return App.Avatar.create({
-        head : App.BodyParts.get('heads').get('firstObject')
-        hat : App.BodyParts.get('hats').get('firstObject')
-        body : App.BodyParts.get('bodys').get('firstObject')
+        head : App.BodyParts.get('heads').get('firstObject'),
+        hat : App.BodyParts.get('hats').get('firstObject'),
+        body : App.BodyParts.get('bodys').get('firstObject'),
         leg : App.BodyParts.get('legs').get('firstObject')
     })
 
@@ -50,4 +50,47 @@ App.BodyPartsController = Ember.ArrayController.extend({
 
 });
 
-App.BodyParts = App.BodyPartsController.create({content:[App.BodyPart.create({type:'head',id:1})]})
+App.BodyParts = App.BodyPartsController.create({content:[
+    App.BodyPart.create({type:'head',id:1}),
+    App.BodyPart.create({type:'head',id:2}),
+    App.BodyPart.create({type:'head',id:3}),
+    App.BodyPart.create({type:'head',id:4}),
+    App.BodyPart.create({type:'head',id:5}),
+    App.BodyPart.create({type:'head',id:6}),
+    App.BodyPart.create({type:'hat',id:1}),
+    App.BodyPart.create({type:'hat',id:2}),
+    App.BodyPart.create({type:'hat',id:3}),
+    App.BodyPart.create({type:'hat',id:4}),
+    App.BodyPart.create({type:'hat',id:5}),
+    App.BodyPart.create({type:'hat',id:6}),
+    App.BodyPart.create({type:'body',id:1}),
+    App.BodyPart.create({type:'body',id:2}),
+    App.BodyPart.create({type:'body',id:3}),
+    App.BodyPart.create({type:'body',id:4}),
+    App.BodyPart.create({type:'body',id:5}),
+    App.BodyPart.create({type:'body',id:6}),
+    App.BodyPart.create({type:'leg',id:1}),
+    App.BodyPart.create({type:'leg',id:2}),
+    App.BodyPart.create({type:'leg',id:3}),
+    App.BodyPart.create({type:'leg',id:4}),
+    App.BodyPart.create({type:'leg',id:5}),
+    App.BodyPart.create({type:'leg',id:6}),
+]})
+
+App.IndexController = Ember.ObjectController.extend({
+    next: function(part) {
+        var avatar = this.get('model');
+        currentHat = avatar.get(part);
+        newHatId = (currentHat.get('id')) % 6 + 1;
+        avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
+    },
+    prev: function(part) {
+        var avatar = this.get('model');
+        currentHat = avatar.get(part);
+        newHatId = (currentHat.get('id') -1) % 6;
+        if( 0 === newHatId) {
+            newHatId = 6; 
+        }
+        avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
+    },
+});

@@ -15,10 +15,25 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
-    <img {{ bindAttr src="model.hat.image"}} />
-    <img {{ bindAttr src="model.head.image"}} />
-    <img {{ bindAttr src="model.body.image"}} />
-    <img {{ bindAttr src="model.legs.image"}} />
+    <div>
+        <a {{ action prev 'hat' }} >prevHat</a>
+        <a {{ action prev 'head' }} >prevHead</a>
+        <a {{ action prev 'body' }} >prevBody</a>
+        <a {{ action prev 'leg' }} >prevLeg</a>
+    </div>
+    <div>
+        <img {{ bindAttr src="model.hat.image"}} />
+        {{ model.hat.id }}
+        <img {{ bindAttr src="model.head.image"}} />
+        <img {{ bindAttr src="model.body.image"}} />
+        <img {{ bindAttr src="model.leg.image"}} />
+    </div>
+    <div>
+        <a {{ action next 'hat' }} >nextHat</a>
+        <a {{ action next 'head' }} >nextHead</a>
+        <a {{ action next 'body' }} >nextBody</a>
+        <a {{ action next 'leg' }} >nextLeg</a>
+    </div>
   </script>
 
   <script src="js/libs/jquery-1.9.1.js"></script>
