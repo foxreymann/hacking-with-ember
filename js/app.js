@@ -6,7 +6,12 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    return App.Avatar.create({head : App.BodyParts.get('heads').get('firstObject')})
+    return App.Avatar.create({
+        head : App.BodyParts.get('heads').get('firstObject')
+        hat : App.BodyParts.get('hats').get('firstObject')
+        body : App.BodyParts.get('bodys').get('firstObject')
+        leg : App.BodyParts.get('legs').get('firstObject')
+    })
 
   }
 });
@@ -31,6 +36,15 @@ App.BodyPart = Ember.Object.extend({
 App.BodyPartsController = Ember.ArrayController.extend({
     heads: function() {
         return this.get('content').filterProperty('type','head');
+    }.property('content'),
+    hats: function() {
+        return this.get('content').filterProperty('type','hat');
+    }.property('content'),
+    bodys: function() {
+        return this.get('content').filterProperty('type','body');
+    }.property('content'),
+    legs: function() {
+        return this.get('content').filterProperty('type','leg');
     }.property('content'),
 
 
