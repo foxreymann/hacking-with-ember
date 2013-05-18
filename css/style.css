@@ -105,6 +105,6 @@ z-index: 8;
   right: 0;
   width: 200px;
   height: 96px;
-  border-radius: 8px;
+  border-radius: 32px;
   background: rgba(255,255,255,0.8);
 }
