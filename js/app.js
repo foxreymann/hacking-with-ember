@@ -138,7 +138,7 @@ App.IndexController = Ember.ObjectController.extend({
 App.Message = Ember.Object.extend({
     content: null,
     send: function() {
-        messagesList.push({userId: App.get('currentAvatar').get('id') , text:this.get('content')});
+        messagesList.push({userId: App.get('currentAvatar').get('id') , content:this.get('content')});
     }
 });
 

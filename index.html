@@ -44,7 +44,7 @@
             <img {{ bindAttr src="body.image"}} />
             <img {{ bindAttr src="leg.image"}} />
             <div>
-                {{ message }} 
+                {{ message.content }} 
             </div>
         {{/each}}
         {{view Ember.TextField valueBinding="newMessage" action="publish" target="App.Avatars" }}
