@@ -28,6 +28,9 @@ App.IndexRoute = Ember.Route.extend({
 App.ChatRoute = Ember.Route.extend({
     controllerFor: function() {
         return App.Avatars;        
+    },
+    setupController: function(controller) {
+     controller.set('content', []);
     }
 })
 
