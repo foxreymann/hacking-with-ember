@@ -2,6 +2,7 @@ App = Ember.Application.create();
 
 App.Router.map(function() {
   // put your routes here
+    this.route("chat", { path: "/chat" });
 });
 
 App.IndexRoute = Ember.Route.extend({
@@ -15,6 +16,7 @@ App.IndexRoute = Ember.Route.extend({
 
   }
 });
+
 
 App.Avatar = Ember.Object.extend({
     name : 'test',
