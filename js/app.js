@@ -13,11 +13,13 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
+    var userId = Math.floor(Math.random() * 999999);
     return App.Avatar.create({
-        head : App.BodyParts.get('heads').get('firstObject'),
-        hat : App.BodyParts.get('hats').get('firstObject'),
-        body : App.BodyParts.get('bodys').get('firstObject'),
-        leg : App.BodyParts.get('legs').get('firstObject')
+        id : userId,
+        headId : 1,
+        hatId : 1,
+        bodyId : 1,
+        legId : 1
     })
 
   }
@@ -25,23 +27,33 @@ App.IndexRoute = Ember.Route.extend({
 
 App.ChatRoute = Ember.Route.extend({
     controllerFor: function() {
-        
+        return App.Avatars;        
     }
 })
 
 App.Avatar = Ember.Object.extend({
     name : 'test',
-    hat: null,
-    body : null,
-    legs : null,
+    hat: function() {
+        return App.BodyParts.get('hats').findProperty('id',this.get('hatId'));
+    }.property('hatId'),
+    head: function() {
+        return App.BodyParts.get('heads').findProperty('id',this.get('headId'));
+    }.property('headId'),
+    body: function() {
+        return App.BodyParts.get('bodys').findProperty('id',this.get('bodyId'));
+    }.property('bodyId'),
+    leg: function() {
+        return App.BodyParts.get('legs').findProperty('id',this.get('legId'));
+    }.property('legId'),
     publish: function() {
         avatarRef.push({
-            userId: this.get('id'),
-            hatId: this.get('hat.id'),   
-            headId: this.get('head.id'),   
-            bodyId: this.get('body.id'),   
-            legId: this.get('leg.id'),   
+            id: this.get('id'),
+            hatId: this.get('hatId'),   
+            headId: this.get('headId'),   
+            bodyId: this.get('bodyId'),   
+            legId: this.get('legId'),   
         });
+        App.Router.router.transitionTo('chat');
     }
 });
 
@@ -124,14 +136,13 @@ App.Messsage = Ember.Object.extend({
 
 
 App.AvatarsController = Ember.ArrayController.extend({
-    
 });
 
 App.Avatars = App.AvatarsController.create({
-    
 })
 
 avatarRef.on('child_added', function(snapshot) {
-    var msgData = snashot.val();
-    App.Avatars.push(App.Avatar.create(msgData));
+    var msgData = snapshot.val();
+    console.log(App.Avatars.get('content'));
+    App.Avatars.pushObject(App.Avatar.create(msgData));
 });

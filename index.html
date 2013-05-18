@@ -34,11 +34,14 @@
         <a {{ action next 'body' }} >nextBody</a>
         <a {{ action next 'leg' }} >nextLeg</a>
     </div>
-    {{#linkTo chat }}Start chatting{{/linkTo}}
+    <a {{action publish target='model'}}>Start chatting</a>
   </script>
 
     <script type="text/x-handlebars" data-template-name="chat">
         chatting    
+        {{#each controller}}
+           {{id}}
+        {{/each}}
     </script>
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/handlebars-1.0.0-rc.3.js"></script>
