@@ -60,7 +60,7 @@ App.Avatar = Ember.Object.extend({
         App.set('currentAvatar',this);
     },
     message: function() {
-        return App.Messages.findProperty('id',this.get('id'));
+        return App.Messages.filterProperty('userId',this.get('id')).get('lastObject');
     
     }.property('App.Messages.@each')
 });
@@ -138,7 +138,7 @@ App.IndexController = Ember.ObjectController.extend({
 App.Message = Ember.Object.extend({
     content: null,
     send: function() {
-        messagesRef.push({userId: App.get('currentAvatar').get('id') , text:this.get('content')});
+        messagesList.push({userId: App.get('currentAvatar').get('id') , text:this.get('content')});
     }
 });
 
