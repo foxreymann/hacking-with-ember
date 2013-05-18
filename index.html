@@ -15,36 +15,42 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
-    <div>
-        <a {{ action prev 'hat' }} >prevHat</a>
-        <a {{ action prev 'head' }} >prevHead</a>
-        <a {{ action prev 'body' }} >prevBody</a>
-        <a {{ action prev 'leg' }} >prevLeg</a>
-    </div>
-    <div class="avatar">
-        <img {{ bindAttr src="model.hat.image"}} />
-        <img {{ bindAttr src="model.head.image"}} />
-        <img {{ bindAttr src="model.body.image"}} />
-        <img {{ bindAttr src="model.leg.image"}} />
-    </div>
-    <div>
-        <a {{ action next 'hat' }} >nextHat</a>
-        <a {{ action next 'head' }} >nextHead</a>
-        <a {{ action next 'body' }} >nextBody</a>
-        <a {{ action next 'leg' }} >nextLeg</a>
-    </div>
+  <div class="avatar-container">
+        <div>
+          <a class="prev hat" {{ action prev 'hat' }} ></a>
+          <a class="prev head" {{ action prev 'head' }} ></a>
+          <a class="prev body" {{ action prev 'body' }} ></a>
+          <a class="prev leg" {{ action prev 'leg' }} ></a>
+      </div>
+      <div class="avatar">
+          <img {{ bindAttr src="model.hat.image"}} />
+          <img {{ bindAttr src="model.head.image"}} />
+          <img {{ bindAttr src="model.body.image"}} />
+          <img {{ bindAttr src="model.leg.image"}} />
+      </div>
+      <div>
+          <a class="next hat" {{ action next 'hat' }} ></a>
+          <a class="next head" {{ action next 'head' }} ></a>
+          <a class="next body" {{ action next 'body' }} ></a>
+          <a class="next leg" {{ action next 'leg' }} ></a>
+      </div>
+      </div>
     <a {{action publish target='model'}}>Start chatting</a>
   </script>
 
     <script type="text/x-handlebars" data-template-name="chat">
         {{#each App.Avatars}}
+        <div class="avatar">
             <img {{ bindAttr src="hat.image"}} />
             <img {{ bindAttr src="head.image"}} />
             <img {{ bindAttr src="body.image"}} />
             <img {{ bindAttr src="leg.image"}} />
-            <div>
+
+            <div class="message>">
                 {{ message.content }} 
             </div>
+        </div>
+
         {{/each}}
         {{view Ember.TextField valueBinding="newMessage" action="publish" target="App.Avatars" }}
     </script>

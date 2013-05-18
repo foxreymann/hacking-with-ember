@@ -1,12 +1,25 @@
 /* Put your CSS here */
 html, body {
-    margin: 20px;
+    margin: 0;
+    padding: 0;
 }
-.avatar {
+
+body {
+  
+  background: rgb(255,255,240);
+}
+
+.avatar-container {
   
   width: 400px;
+  position: relative;
+}
+.avatar {
+  float: left;
+  position: relative;
+  width: 400px;
   text-align: center;
-  -webkit-transform:rotate(7deg); /* Safari and Chrome */*/
+  -webkit-transform:rotate(5deg); /* Safari and Chrome */*/
 
 }
 
@@ -24,4 +37,59 @@ z-index: 8;
 }
 .avatar img:nth-of-type(2) {
   z-index: 4;
+}
+
+.next,  .prev {
+  cursor: pointer;
+  width: 38px;
+  height: 18px;
+  display: block;
+  position: absolute;
+
+}
+
+.prev {
+  
+  background: url("../images/leftarrow.png");
+
+}
+
+.next {
+  right: 0;
+  background: url("../images/rightarrow.png");
+
+}
+
+.prev:hover {
+  
+  opacity: 0.5;
+}
+
+.hat {
+  
+  top: 125px;
+}
+
+.head {
+  top: 250px;
+}
+
+.body {
+  top: 450px;
+}
+
+.leg {
+  
+  top: 650px;
+}
+
+.message {
+  
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 96px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.8);
 }
