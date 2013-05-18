@@ -1,5 +1,3 @@
-var messagesRef = new Firebase('https://hatchat.firebaseIO.com/');
-
 var avatarRef = new Firebase('https://hatchat.firebaseIO.com/avatar_list');
 
 var messagesList = new Firebase('https://hatchat.firebaseIO.com/message_list');
@@ -59,14 +57,13 @@ App.Avatar = Ember.Object.extend({
             legId: this.get('legId'),   
         });
         App.Router.router.transitionTo('chat');
-    }
-});
-
-App.Messages = Ember.Object.extend({
-    text: null,
-    userId : null
+        App.set('currentAvatar',this);
+    },
+    message: function() {
+        return App.Messages.findProperty('id',this.get('id'));
     
-})
+    }.property('App.Messages.@each')
+});
 
 App.BodyPart = Ember.Object.extend({
     type : null,
@@ -99,54 +96,62 @@ App.BodyParts = App.BodyPartsController.create({content:[
     App.BodyPart.create({type:'head',id:3}),
     App.BodyPart.create({type:'head',id:4}),
     App.BodyPart.create({type:'head',id:5}),
-    App.BodyPart.create({type:'head',id:6}),
+    App.BodyPart.create({type:'head',id:4}),
     App.BodyPart.create({type:'hat',id:1}),
     App.BodyPart.create({type:'hat',id:2}),
     App.BodyPart.create({type:'hat',id:3}),
     App.BodyPart.create({type:'hat',id:4}),
     App.BodyPart.create({type:'hat',id:5}),
-    App.BodyPart.create({type:'hat',id:6}),
+    App.BodyPart.create({type:'hat',id:4}),
     App.BodyPart.create({type:'body',id:1}),
     App.BodyPart.create({type:'body',id:2}),
     App.BodyPart.create({type:'body',id:3}),
     App.BodyPart.create({type:'body',id:4}),
     App.BodyPart.create({type:'body',id:5}),
-    App.BodyPart.create({type:'body',id:6}),
+    App.BodyPart.create({type:'body',id:4}),
     App.BodyPart.create({type:'leg',id:1}),
     App.BodyPart.create({type:'leg',id:2}),
     App.BodyPart.create({type:'leg',id:3}),
     App.BodyPart.create({type:'leg',id:4}),
     App.BodyPart.create({type:'leg',id:5}),
-    App.BodyPart.create({type:'leg',id:6}),
+    App.BodyPart.create({type:'leg',id:4}),
 ]})
 
 App.IndexController = Ember.ObjectController.extend({
     next: function(part) {
         var avatar = this.get('model');
         currentHat = avatar.get(part);
-        newHatId = (currentHat.get('id')) % 6 + 1;
+        newHatId = (currentHat.get('id')) % 4 + 1;
         avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
     },
     prev: function(part) {
         var avatar = this.get('model');
         currentHat = avatar.get(part);
-        newHatId = (currentHat.get('id') -1) % 6;
+        newHatId = (currentHat.get('id') -1) % 4;
         if( 0 === newHatId) {
-            newHatId = 6; 
+            newHatId = 4; 
         }
         avatar.set(part,App.BodyParts.get(part + 's').findProperty('id',newHatId));
     },
 });
 
-App.Messsage = Ember.Object.extend({
+App.Message = Ember.Object.extend({
     content: null,
     send: function() {
-        messagesRef.push({userId: this.get('avatar').get('id') , text:this.get('content')});
+        messagesRef.push({userId: App.get('currentAvatar').get('id') , text:this.get('content')});
     }
 });
 
 
 App.AvatarsController = Ember.ArrayController.extend({
+    publish : function() {
+        console.log('sending a mes');
+        
+    },
+    messageChanged : function() {
+           console.log(this.get('newMessage'));
+
+    }.observes('newMessage') 
 });
 
 App.Avatars = App.AvatarsController.create({
@@ -154,6 +159,27 @@ App.Avatars = App.AvatarsController.create({
 
 avatarRef.on('child_added', function(snapshot) {
     var msgData = snapshot.val();
-    console.log(App.Avatars.get('content'));
     App.Avatars.pushObject(App.Avatar.create(msgData));
 });
+
+messagesList.on('child_added', function(snapshot) {
+    var msgData = snapshot.val();
+    App.Messages.pushObject(App.Message.create(msgData));
+});
+
+
+App.ChatController = Ember.Controller.extend({
+    publish : function() {
+        App.Message.create({content : this.get('newMessage')}).send();
+    }
+});
+
+App.MessagesController = Ember.ArrayController.extend({
+    
+
+})
+
+App.Messages = App.MessagesController.create({
+    
+
+})
