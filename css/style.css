@@ -2,11 +2,21 @@
 html, body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 body {
+  overflow: hidden;
+  background: #e74c3c;
+}
+
+h2 {
   
-  background: rgb(255,255,240);
+  font-size: 48px;
+  line-height: 48px;
+  display: inline-block;
+  width: 100%;
+  color: yellow;
 }
 
 .avatar-container {
@@ -84,7 +94,12 @@ z-index: 8;
 }
 
 .message {
-  
+  z-index: 22;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: bold;
+  padding: 18px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.5);
   position: absolute;
   top: 0;
   right: 0;
