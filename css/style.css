@@ -2,12 +2,23 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: auto;
     min-height: 100%;
 }
 
 body {
   background: #e74c3c;
+}
+
+input {
+  background: rgba(255,255,255,0.8);
+  width: 400px;
+  position: fixed;
+  top: 96px;
+  left: 96px;
+  height: 48px;
+  font-size: 32px;
+  line-height: 48px;
 }
 
 h2 {
