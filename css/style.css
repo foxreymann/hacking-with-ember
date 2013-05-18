@@ -2,3 +2,26 @@
 html, body {
     margin: 20px;
 }
+.avatar {
+  
+  width: 400px;
+  text-align: center;
+  -webkit-transform:rotate(7deg); /* Safari and Chrome */*/
+
+}
+
+.avatar img {
+  
+  display: inline-block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.avatar img:first-of-type {
+  margin-bottom: -48px;
+  
+z-index: 8;
+}
+.avatar img:nth-of-type(2) {
+  z-index: 4;
+}
